@@ -2,35 +2,38 @@ import { z } from 'zod';
 
 const userNameSchema = z.object({
     firstName: z
-      .string()
-      .min(1)
-      .max(20)
-      .refine((value) => /^[A-Z]/.test(value), {
-        message: 'First Name must start with a capital letter',
-      }),
+        .string()
+        .min(1)
+        .max(20)
+        .refine((value) => /^[A-Z]/.test(value), {
+            message: 'First Name must start with a capital letter',
+        }),
     middleName: z.string(),
     lastName: z.string(),
-  });
-  
-  const guardianSchema = z.object({
+});
+
+const guardianSchema = z.object({
     fatherName: z.string(),
     fatherOccupation: z.string(),
     fatherContactNo: z.string(),
     motherName: z.string(),
     motherOccupation: z.string(),
     motherContactNo: z.string(),
-  });
-  
-  const localGuardianSchema = z.object({
+});
+
+const localGuardianSchema = z.object({
     name: z.string(),
     occupation: z.string(),
     contactNo: z.string(),
     address: z.string(),
-  });
-  
-  export const studentValidationSchema = z.object({
+});
+
+export const studentValidationSchema = z.object({
     id: z.string(),
-    password: z.string().max(20),
+    user: z
+        .string({ required_error: 'User id is required' }) // Ensures it's a string
+        .regex(/^[0-9a-fA-F]{24}$/, 'Invalid ObjectId format'), // Validates MongoDB ObjectId
+    // password: z.string().max(20),
     name: userNameSchema,
     gender: z.enum(['male', 'female', 'other']),
     dateOfBirth: z.string(),
@@ -43,8 +46,8 @@ const userNameSchema = z.object({
     guardian: guardianSchema,
     localGuardian: localGuardianSchema,
     profileImg: z.string(),
-    isActive: z.enum(['active', 'blocked']).default('active'),
+    // isActive: z.enum(['active', 'blocked']).default('active'),
     isDeleted: z.boolean().optional(),
-  });
-  
-  export default studentValidationSchema;
+});
+
+export default studentValidationSchema;
