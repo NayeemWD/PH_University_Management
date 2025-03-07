@@ -1,7 +1,6 @@
 // import bcrypt from 'bcrypt';
 // import config from '../../config';
 
-
 import { model, Schema } from 'mongoose';
 import {
     StudentModel,
@@ -117,7 +116,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
             },
             required: [true, 'Gender is required'],
         },
-        dateOfBirth: { type: String },
+        dateOfBirth: { type: Date },
         email: {
             type: String,
             required: [true, 'Email is required'],
@@ -184,8 +183,6 @@ studentSchema.virtual('fullName').get(function () {
     //   return `${firstName} ${middleName ? middleName + ' ' : ''}${lastName}`;
 });
 
-
-
 // // pre save middleware/ hook : will work on create()  save()
 // studentSchema.pre('save', async function (next) {
 //     // console.log(this, 'pre hook : we will save  data');
@@ -204,8 +201,6 @@ studentSchema.virtual('fullName').get(function () {
 //     doc.password = '';
 //     next();
 // });
-
-
 
 // Query Middleware
 studentSchema.pre('find', function (next) {

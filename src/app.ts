@@ -27,9 +27,10 @@ const test = (req: Request, res: Response) => {
 
 app.get('/', test);
 
-// Error-handling middleware
+// Not Found
+app.use(notFound);
 
-app.use(globalErrorHandler);
+// Error-handling middleware
 
 ///////////// tring multupal way solve this errer:
 // app.use((err: any, req: Request, res: Response, next: NextFunction) => {
@@ -73,7 +74,6 @@ app.use(globalErrorHandler);
 
 ///////////
 
-// Not Found
-app.use(notFound);
+app.use(globalErrorHandler);
 
 export default app;
