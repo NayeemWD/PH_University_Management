@@ -29,25 +29,31 @@ const localGuardianSchema = z.object({
 });
 
 export const studentValidationSchema = z.object({
-    id: z.string(),
-    user: z
-        .string({ required_error: 'User id is required' }) // Ensures it's a string
-        .regex(/^[0-9a-fA-F]{24}$/, 'Invalid ObjectId format'), // Validates MongoDB ObjectId
-    // password: z.string().max(20),
-    name: userNameSchema,
-    gender: z.enum(['male', 'female', 'other']),
-    dateOfBirth: z.string(),
-    email: z.string().email(),
-    contactNo: z.string(),
-    emergencyContactNo: z.string(),
-    bloogGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
-    presentAddress: z.string(),
-    permanentAddress: z.string(),
-    guardian: guardianSchema,
-    localGuardian: localGuardianSchema,
-    profileImg: z.string(),
-    // isActive: z.enum(['active', 'blocked']).default('active'),
-    isDeleted: z.boolean().optional(),
+    body: z.object({
+        // id: z.string(),
+        // user: z
+        //     .string({ required_error: 'User id is required' }) // Ensures it's a string
+        //     .regex(/^[0-9a-fA-F]{24}$/, 'Invalid ObjectId format'), // Validates MongoDB ObjectId
+        password: z.string().max(20),
+       student: z.object({
+        name: userNameSchema,
+        gender: z.enum(['male', 'female', 'other']),
+        dateOfBirth: z.string(),
+        email: z.string().email(),
+        contactNo: z.string(),
+        emergencyContactNo: z.string(),
+        bloogGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
+        presentAddress: z.string(),
+        permanentAddress: z.string(),
+        guardian: guardianSchema,
+        localGuardian: localGuardianSchema,
+        profileImg: z.string(),
+        // isActive: z.enum(['active', 'blocked']).default('active'),
+        // isDeleted: z.boolean().optional(),
+       })
+    }),
 });
 
-export default studentValidationSchema;
+export const studentValidations = {
+    studentValidationSchema,
+};
