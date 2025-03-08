@@ -162,6 +162,10 @@ const studentSchema = new Schema<TStudent, StudentModel>(
         //     },
         //     default: 'active',
         // },
+        admissionSemester: {
+            type: Schema.Types.ObjectId,
+            ref: 'AcademicSemester',
+        },
         isDeleted: {
             type: Boolean,
             default: false,
