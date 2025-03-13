@@ -1,9 +1,9 @@
 import httpStatus from 'http-status'; // Default import
 import sendResponse from '../../utils/sendResponse';
-import catchAsyne from '../../utils/catchAsync';
 import { AcademicSemesterServices } from './academicSemester.service';
+import catchAsyne from '../../utils/catchAsync';
 
-const createAcademicSemester = catchAsyne(async (req, res) => {
+const createAcademicSemester = catchAsyne(async (req, res, next) => {
     const result = AcademicSemesterServices.createAcademicSemesterIntoDB(
         req.body
     );
@@ -17,7 +17,7 @@ const createAcademicSemester = catchAsyne(async (req, res) => {
 });
 
 const getAllAcademicSemester = catchAsyne(async (req, res) => {
-    const result = AcademicSemesterServices.getAllAcademicSemesterFroDB();
+    const result = await AcademicSemesterServices.getAllAcademicSemesterFroDB();
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

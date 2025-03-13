@@ -54,6 +54,42 @@ academicSemesterSchema.pre('save', async function (next) {
     next();
 });
 
+// academicSemesterSchema.pre('save', async function (next) {
+//     try {
+//         const isSemesterExists = await AcademicSemester.findOne({
+//             year: this.year,
+//             name: this.name,
+//         });
+
+//         if (isSemesterExists) {
+//             const error = new Error('Semester already exists!');
+//             return next(error); // Properly passing error to Mongoose error handling
+//         }
+//         next();
+//     } catch (error: any) {
+//         next(error); // Ensuring any DB-related errors are handled properly
+//     }
+// });
+
+
+
+// academicSemesterSchema.pre('save', async function (next) {
+//     try {
+//         const isSemesterExists = await AcademicSemester.findOne({
+//             year: this.year,
+//             name: this.name,
+//         });
+
+//         if (isSemesterExists) {
+//             throw new Error('Semester already exists!');
+//         }
+//         next();
+//     } catch (error: any) {
+//         next(error); // Pass the error to Mongoose
+//     }
+// });
+
+
 export const AcademicSemester = model<TAcademicSemester>(
     'Academic-Semester',
     academicSemesterSchema
